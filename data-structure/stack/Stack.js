@@ -23,19 +23,30 @@ export default class Stack {
     this.linkedList.prepend(value);
   }
 
+  /**
+   * 移除第一项
+   * @returns {any} removedValue
+   */
   pop() {
     const removedHead = this.linkedList.deleteHead();
     return removeHead ? removedHead.value : null;
   }
 
-  // return the array type of head value
+  /**
+   * 转换为数组
+   * @returns {any[]} the array type of head value
+   */
   toArray() {
     return this.linkedList
       .toArray()
       .map(linkedListNode => linkedListNode.value);
   }
 
-  // return the strign of stack
+  /**
+   * 
+   * @param {object} next 
+   * @return {string} the strign of stack
+   */
   toString(next) {
     return this.linkedList.toString(next);
   }
