@@ -20,6 +20,22 @@ export default class LinkedList {
     return this;
   }
 
+  // add new node to the last of a linkedlist
+  append(value) {
+    const newTailNode = new LinkedListNode(value);
+    this.tail = newTailNode;
+
+    if (!this.head) {
+      this.head = newTailNode;
+      this.tail = newTailNode;
+      return this;
+    }
+
+    this.tail.next = newTailNode;
+    this.tail = newTailNode;
+    return this;
+  }
+
   deleteHead() {
     if (!this.head) {
       return null;
