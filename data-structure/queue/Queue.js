@@ -5,10 +5,16 @@ export default class Queue {
     this.linkedList = new LinkedList();
   }
 
+  /**
+   * @returns {boolean}
+   */
   isEmpty() {
     return !this.linkedList.head;
   }
 
+  /**
+   * @return {any}
+   */
   peek() {
     if (this.isEmpty()) {
       return null;
@@ -17,12 +23,18 @@ export default class Queue {
     return this.linkedList.head.value;
   }
 
-  // add item to a queue
+  /**
+   * add item to a queue
+   * @param {any} value 
+   */
   enqueue(value) {
     this.linkedList.append(value);
   }
 
-  // item removed from a queue
+  /**
+   * item removed from a queue
+   * @reutns {any}
+   */
   dequeue() {
     const removedNode = this.linkedList.deleteHead();
     return removedNode ? removedNode.value : null;
