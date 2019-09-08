@@ -1,4 +1,4 @@
-## 堆
+# 堆
 
 类似于树状结构，可细分为最小堆和最大堆，分别具有不同特性
 
@@ -33,3 +33,13 @@
 5. `leftChild(parentIndex)`：
 6. `rightChild(parentIndex)`：
 7. `parent(childIndex)`：
+
+1. getChildIndex
+
+> 计算左右两个 child 的索引，都为父级下面的，因为堆的特性，一个父节点 必须要有两个子节点可以算出来
+
+- 需要传入 parentIndex 才能进行计算
+- leftChild 计算方法为 `2n + 1`
+- rightChild 计算方法为 `2n + 2`
+
+

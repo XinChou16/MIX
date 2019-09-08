@@ -1,31 +1,52 @@
 import LinkedList from '../linked-list/LinkedList';
 
+const DEFAULT_HASH_SIZE = 32;
+
 export default class HashNode {
-  constructor(hashTableSize = 32) {
-    this.buckets = Array(hashTableSize)
+  constructor(hashSize = DEFAULT_HASH_SIZE) {
+    // 哈希表，根据 size 进行创建，并填充链表
+    this.buckets = 
+      Array(hashSize)
       .fill(null)
       .map(() => new LinkedList());
+
+    // 存储所有的 key 值
     this.keys = {};
   }
 
   hash(key) {
-    const hash = Array.from(key)
+    const newkey = 
+      Array.from(key)
       .reduce(
-        (hashAccumulator, keySymbol) => (hashAccumulator + keySymbol).charCodeAt(0),
+        (acc, cur) => (acc + cur.charCodeAt(0)),
         0
-      )
-    return hash % this.buckets.length;
+      );
+    
+    return newkey % this.buckets.length;
   }
 
-  set() {
+  set(key, value) {
+    const hashKey = this.hash(key);
 
+    // 存储key
+    this.keys[key] = hashKey;
+
+    const bucketLinkedList = this.buckets[hashKey];
+    const node = bucketLinkedList.find({ callback: nodeValue => nodeValue.key === key });
+
+    if (!node) {
+      bucketLinkedList.append({ key, value });
+    } else {
+      node.value.value = value;
+    }
   }
 
-  get() {
-    const bucketLinkedList = this.buckets[this.hash[key]];
-    const node = bucketLinkedList.find(
-    { callback: nodeValue => nodeValue.key === key }
-    );
+  get(key) {
+    // const hashKey = this.keys[key];
+    const hashKey = this.hash[key];
+    const bucketLinkedList = this.buckets[hashKey];
+    const node = bucketLinkedList.find({ callback: nodeValue => nodeValue.key === key });
+    
     return node ? node.value.value : undefined;
   }
 

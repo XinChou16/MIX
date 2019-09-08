@@ -11,7 +11,7 @@ export default class Heap {
    * parent 1 childL 3 childR 4
    * 2n + 1
    */
-  getLeftChildIndex(parentIndex) {
+  getLeftChildIndex(parentIndex) { 
     return (2 * parentIndex) + 1;
   }
 
@@ -123,6 +123,7 @@ export default class Heap {
   }
 
   checkIsInCorrectOrder(a, b) {
-
+    throw new Error('You have to implement your comparision methods
+    ');
   }
 }
