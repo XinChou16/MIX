@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>template examples</title>
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <template id="my-paragraph">
+    <style>
+      p {
+        color: skyblue;
+      }
+    </style>
+    <p>
+      <slot name="text">Default text</slot>
+    </p>
+  </template>
+
+  <my-paragraph></my-paragraph>
+
+  <my-paragraph>
+    <span slot="text">text first</slot>
+  </my-paragraph>
+
+  <my-paragraph>
+    <ul slot="text">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </my-paragraph>
+</body>
+</html>
