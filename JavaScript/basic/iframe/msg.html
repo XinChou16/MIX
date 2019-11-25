@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>msg-html</title>
+</head>
+<body>
+    <div id="div1"></div>
+    <script>
+        window.addEventListener('message', (event) => {
+            if (event.origin === 'http://localhost:8000') {
+                console.log({event});
+                document.body.innerHTML = 'event.origin: ' + event.origin + '<br>event.data: ' + event.data;
+            } else {
+                document.body.innerHTML = '不可信任的源';
+            }
+            setTimeout(() => {
+                event.source.postMessage('已经收到', event.origin);
+            }, 2000);
+        })
+    </script>
+</body>
+</html>

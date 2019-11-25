@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <iframe src="msg.html" id="myIframe" width="400" height="100" onload="sendMsg()"></iframe>
+
+    <script>
+        console.log('1s后发送消息...');
+        function sendMsg() {
+            var iframeWindow = myIframe.contentWindow;
+            var data =  { a: 1, b: 2};
+            var jsonData = JSON.stringify(data);
+
+            setTimeout(() => {
+                console.log('发送成功', jsonData);
+                iframeWindow.postMessage(jsonData, 'http://localhost:8000/msg.html')
+            }, 1000);
+            
+            window.addEventListener('message', (event) => {
+                console.log(event);
+            })
+        }
+    </script>
+</body>
+</html>
