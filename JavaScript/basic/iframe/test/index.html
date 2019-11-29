@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document1</title>
+</head>
+<body>
+    <div id="box">
+        <iframe src="msg.html" id="myIframe" width="400" height="100" onload="sendMsg()"></iframe>
+    </div>
+
+    <script>
+        console.log('receving datas...');
+        function sendMsg() { }
+        window.addEventListener('message', e => {
+            console.log(e.data)
+            setTimeout(() => {
+                // document.body.removeChild(box);
+            }, 2000);
+        })
+    </script>
+</body>
+</html>
