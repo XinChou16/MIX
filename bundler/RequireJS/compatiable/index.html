@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>兼容写法测试</title>
+</head>
+<body>
+    <p>body </p>
+    <script src="https://cdn.bootcss.com/require.js/2.3.6/require.js"></script>
+    <script>
+        
+        requirejs.config({
+            baseUrl: 'http://localhost:8000/compatiable',
+            paths: { src: 'src/module' }
+        });
+
+    </script>
+    <script>
+        console.log('body-loaded');
+        
+        requirejs(['src/m1'], function(data) {
+            console.log('body-loaded', data);
+        });
+    </script>
+</body>
+</html>
