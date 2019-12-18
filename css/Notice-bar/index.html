@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+    <style>
+        .scroll-view__wrap {
+            background: #eee;
+            width: 300px;
+            height: 20px;
+            border: 1px solid skyblue;
+            /* overflow: hidden; */
+        }
+        .scroll-view__content {
+            margin: 0;
+            animation: notice-bar linear infinite both;
+            animation-delay: 0s;
+            animation-duration: 6s;
+        }
+        @keyframes notice-bar {
+            to { transform: translate3d(0, -100%, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="scroll-view__wrap">
+            <ul class="scroll-view__content" >
+                <li
+                    v-for="item in list"
+                >
+                    {{item}}
+                </li
+                >
+            </ul>
+        </div>
+    </div>
+	<script src="https://cdn.bootcss.com/vue/1.0.26/vue.js"></script>
+<script>
+    // https://jsbin.com/soyakixaca/edit?html,output
+// https://github.com/youzan/vant/blob/dev/src/notice-bar/index.less
+  new Vue({
+    el: '#app',
+    data: {
+      list: [
+        '189xxxx0909用户获得大盘鸡',
+        '289xxxx0909用户获得大盘鸡',
+        '389xxxx0909用户获得大盘鸡',
+        '489xxxx0909用户获得大盘鸡'
+      ]
+    }
+  })
+</script>
+</html>

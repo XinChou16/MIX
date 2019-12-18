@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>vue</title>
+    <style>
+        .scroll-view {
+            background: #eee;
+            width: 300px;
+            height: 20px;
+            border: 1px solid skyblue;
+            overflow: hidden;
+        }
+        .scroll-list {
+            margin: 0;
+            /* transform: translate3d(0, 0, 0); */
+            /* transform: translateY(-50px); */
+            animation: notice-bar linear infinite both;
+            animation-delay: 0s;
+            animation-duration: 6s;
+        }
+        @keyframes notice-bar {
+            to { transform: translate3d(0, -100%, 0); }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="scroll-view">
+            <ul class="scroll-list" :style="scrollStyle" ref="scrollList">
+                <li
+                    v-for="item in list"
+                >
+                    {{item}}
+                </li
+                >
+            </ul>
+        </div>
+    </div>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+       msg: '122',
+      list: [
+        '189xxxx0909用户获得大盘鸡',
+        '289xxxx0909用户获得大盘鸡',
+        '389xxxx0909用户获得大盘鸡',
+        '489xxxx0909用户获得大盘鸡'
+      ],
+      scrollStyle: 'transform: translate3d(0, 0, 0)'
+    },
+    mounted() {
+        this.initScroll();
+    },
+    methods: {
+        initScroll() {
+            var totalHeight = this.$refs.scrollList.scrollHeight;
+            window.vm = this;
+            var fn = setTimeout
+            var fn1 = setInterval;
+            this.timmer = fn((function() {
+                // this.move(10);
+            }).bind(this), 1000);
+        },
+        move(step) {
+            if (!this.distance) {
+                this.distance = 0;
+            }
+            this.$nextTick(function() {
+                this.distance += (step || 10);
+                // 设置移动样式
+                var styleStr =  '-webkit-transform: translate3d(0, -{YAXIS}px, 0);transform: translate3d(0, -{YAXIS}px, 0);';
+                this.scrollStyle = styleStr.replace(/{YAXIS}/g, this.distance);
+            })
+        }
+    }
+  })
+</script>
+</body>
+</html>
