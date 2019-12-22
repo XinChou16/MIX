@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>先后顺序测试</title>
+</head>
+<body>
+    <p>body </p>
+    <script src="https://cdn.bootcss.com/require.js/2.3.6/require.js"></script>
+    <script>
+        
+        requirejs.config({
+            paths: { src: 'src/module' }
+        });
+
+    </script>
+    <script>
+        // 引入的Js，不保证先后顺序
+        requirejs([
+            'https://cdn.bootcss.com/vue/2.6.10/vue.js',
+            'src/m1', 
+            'src/m2'
+        ], function(vue) {
+            console.log('body-loaded', vue);
+        });
+    </script>
+</body>
+</html>
