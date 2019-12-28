@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+<iframe src="//127.0.0.1" frameborder="0" id="testIframe" onload="iframeLoad()" onerror="ifrmaeError()"></iframe>
+  
+  <script>
+    var iframeWindow = testIframe.contentWindow;
+    // console.log(1,iframeWindow)
+    function iframeLoad(res) {
+      console.log('load',res)
+    }
+    function iframeError(res) {
+      console.error('error',res)
+    }
+  </script>
+</body>
+</html>
