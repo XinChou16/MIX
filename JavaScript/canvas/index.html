@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Canvas Demo</title>
+    <style>
+        * { margin: 0; padding: 0;}
+    </style>
+</head>
+<body>
+<canvas id="myCanvas"></canvas>
+<script src="./canvasDraw.js"></script>
+<script>
+{
+    const x = window.innerWidth;
+    const y = window.innerHeight;
+    
+    const drawer = new Drawer('#myCanvas', x, y);
+    drawer.drawBg('#eee');
+    drawer.drawCircle(10, 10, 100, '#6699ff');
+    
+    const src = 'https://via.placeholder.com/300x300.png';
+    const img = new Image;
+    img.src = src;
+    img.onload = function() {
+        drawer.drawCircleImg(img, 20, 20, 180);
+        drawer.drawCircle(10, 220, 50, '#6699ff');
+    }
+
+}
+
+</script>
+</body>
+</html>
