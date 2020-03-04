@@ -15,6 +15,12 @@ class Drawer {
         canvasEl.height = y;
         this.ctx = canvasEl.getContext('2d');
     }
+    init(newWidth, newHeight) {
+        const { width, height } = this.canvasEl;
+        this.ctx.clearRect(0, 0, width, height);
+        this.canvasEl.width = newWidth;
+        this.canvasEl.height = newHeight;
+    }
     /**
      * 画圆形
      * @param {Number} x circle 的横坐标
@@ -51,20 +57,60 @@ class Drawer {
      * @param {Number} w 宽度
      * @param {Number} h 高度
      */
-    drawImg(img, x, y, w, h) {
+    drawImg(img, x, y, w, h, isCircle) {
         const arcX = x + w / 2;
         const arcY = y + w / 2;
         const r = w / 2;
         
         this.ctx.save();
         this.ctx.beginPath();
-        this.ctx.arc(arcX, arcY, r, 0, 2 * Math.PI, false);
-        this.ctx.clip();
+        isCircle && this.ctx.arc(arcX, arcY, r, 0, 2 * Math.PI, false);
+        isCircle && this.ctx.clip();
         this.ctx.drawImage(img, x, y, w, h);
         this.ctx.closePath();
         this.ctx.restore();
     }
     drawCircleImg(img, x, y, r) {
-        this.drawImg(img, x, y, r, r);
+        this.drawImg(img, x, y, r, r, true);
+    }
+    /**
+     * canvas 转换成 Blob
+     */
+    toBlob() {
+        return new Promise(resolve => {
+            this.canvasEl.toBlob((blobFile) => {
+                window.URL = window.URL || window.webkitURL;
+                const blobUrl = window.URL.createObjectURL(blobFile);
+                resolve(blobUrl);
+            });
+        });
+    }
+    /**
+     * 加载图片
+     * @param {String} src 图片源地址
+     */
+    loadImg(src) {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => resolve(img);
+            img.onerror = reject;
+            img.src = src;
+        });
+    }
+    /**
+     * 下载文件
+     * @param {string} href 下载地址
+     * @param {string} fileName 下载后的文件名
+     */
+    downloadFile(href, fileName) {
+        const aEl = document.createElement('a');
+        aEl.download = fileName;
+        aEl.href = href;
+        aEl.style.display = 'none';
+        
+        document.body.appendChild(aEl);
+        aEl.click();
+        document.body.removeChild(aEl);
     }
 }
