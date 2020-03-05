@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>浏览器下载</title>
+</head>
+<body>
+    <section>
+        <h2>利用 a 标签实现下载</h2>
+        <img src="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg" alt="" style="display:block;width:20%">
+        <a href="https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg" download>戳我下载</a>
+        <button onclick="download1()">戳我使用JS下载</button>
+    </section>
+
+    <section>
+        <h2>iframe下载</h2>
+        <button onclick="download2()">戳我使用iframe下载</button>
+    </section>
+
+    <section>
+        <h2>base64</h2>
+        <img src="" alt="" id="myImg">
+    </section>
+    <script src="./download.js"></script>
+    <script>
+        const url = 'https://cdn.pixabay.com/photo/2015/04/23/22/00/tree-736885__340.jpg';
+
+        function download1() {
+            downloadByALink(url, 'img');
+        }
+
+        function download2() {
+            downloadByIFrame(url);
+        }
+
+        function img2Base64 (){
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            img.onload = () => {
+                const dataUrl = getImgDataUrl(img);
+                myImg.src = dataUrl;
+                console.log(img.width)
+            }
+            img.src = url;
+        }
+
+        img2Base64();
+    </script>
+</body>
+</html>
