@@ -1,12 +1,16 @@
 {
   "name": "cool-utils",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "babel": "babel ./src/index.js -o dist.js"
   },
   "private": true,
   "author": "Violet",
   "license": "MIT",
   "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
     "jest": "^25.1.0"
   }
 }
