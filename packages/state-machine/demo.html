@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,max-width=device-width,user-scable=no">
+  <title>State-machine</title>
+  <script src="https://cdn.jsdelivr.net/npm/javascript-state-machine@3.1.0/dist/state-machine.js"></script>
+</head>
+
+<body>
+  <p>state machine</p>
+  <script>
+    // https://github.com/jakesgordon/javascript-state-machine
+    var fsm = new StateMachine({
+      init: 'a',
+      transitions: [
+        { name: 'submit', from: 'a', to: 'b' },
+        { name: 'success', from: 'b', to: 'c' },
+        { name: 'fail', from: 'b', to: 'a' },
+        { name: 'cancel', from: 'c', to: 'a' },
+      ],
+      methods: {
+        onSubmit: function () { console.log('I submited') },
+        onSuccess: function () { console.log('I successed') },
+        onFail: function () { console.log('I failed') },
+        onCancel: function () { console.log('I canceled') }
+      },
+    });
+
+    // fsm.allStates();
+    // if (fsm.can('submit') && fsm.submit()) {
+    //   console.log('on-submit');
+    // }
+
+
+  </script>
+</body>
+
+</html>
