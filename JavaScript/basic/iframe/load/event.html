@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iframe</title>
+</head>
+<body>
+    <iframe src="" frameborder="0" id="myFrame"></iframe>
+    <p style="display:none" id="tip">timeout</p>
+    <!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script> -->
+    <script>
+        // var src = '//qq.com';
+        // src = '//localhost:8090';
+        src = 'http://www.google.co.in/';
+        // src = 'http://www.asdfasdfasdfasfdasf.com';
+        console.log('===start===')
+
+        myFrame.onload = function (){
+            console.log('===load===')
+            window.myFrame = this;
+            console.dir(this)
+
+            try {
+                var content = this.contentDocument;
+                console.log(content)
+            } catch (e) {
+                console.error(e)
+            }
+
+            console.log('===cancel===');
+            timmer && clearTimeout(timmer)
+        }
+
+        myFrame.onerror = (err) => {
+            console.error('err', err);
+        }
+
+        myFrame.src = src;
+
+        var timmer = setTimeout(() => {
+            console.log('timeout');
+            myFrame.onload = myFrame.onerror = null;
+
+            myFrame.src = '';
+            tip.style.display = 'block';
+
+        }, 5 * 1000);
+    </script>
+</body>
+</html>
