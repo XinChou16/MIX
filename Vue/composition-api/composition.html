@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Composition-api</title>
+</head>
+<body>
+
+<div id="app">
+  msg: {{ msg }}
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.js"></script>
+<script src="https://unpkg.com/@vue/composition-api/dist/vue-composition-api.umd.js"></script>
+<script>
+// import Vue from 'https://cdn.jsdelivr.net/npm/vue@2.6.11/dist/vue.esm.browser.js';
+// import VueCompositionApi from 'https://unpkg.com/@vue/composition-api/dist/vue-composition-api.module.js';
+
+new Vue({
+  setup() {
+    const { msg } = useMsg();
+    return { msg };
+  },
+  // data: {
+  //   msg: '12'
+  // },
+  template: `
+   <div>msg: {{ msg }}</div>
+  `
+}).$mount('#app')
+
+const { ref } = vueCompositionApi;
+function useMsg() {
+  const msg = ref('hello');
+
+  return { msg };
+}
+</script>
+</body>
+</html>
