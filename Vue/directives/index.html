@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>v-directives</title>
+</head>
+<body>
+  <p>v-directive</p>
+
+  <div id="app">
+    <p v-focus>focus</p>
+    <p v-link.blank="link">link</p>
+  </div>
+  <script src="https://cdn.bootcss.com/vue/2.6.7/vue.min.js"></script>
+  <script type="module">
+    import * as directives from './index.js';
+
+    // 注册指令
+    const registDirectives = ['focus', 'link'];
+    console.log(Object.keys(directives))
+    Object.keys(directives).forEach(key => {
+      Vue.directive(key, directives[key]);
+    });
+
+    new Vue({
+      data: {
+        link: 'http://baidu.com'
+      }
+    }).$mount('#app');
+  </script>
+</body>
+</html>
