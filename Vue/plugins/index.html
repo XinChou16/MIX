@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>plugins</title>
+</head>
+<body>
+  <p>plugins</p>
+
+  <div id="app">
+    {{ msg }}
+  </div>
+  <div id="app2">
+    app2
+    <button @click="fire">fire</button>
+    <button @click="removeVM">remove vm</button>
+  </div>
+  <script src="https://cdn.bootcss.com/vue/2.6.7/vue.min.js"></script>
+  <script src="./event-bus.js"></script>
+  <script>
+    // import  from './index.js';
+    Vue.use(EventBus);
+
+    const vm = new Vue({
+      data: {
+        msg: 'http://baidu.com'
+      },
+      $bus: {
+        load(data) {
+          console.log('load', data);
+        }
+      }
+    }).$mount('#app');
+
+    new Vue({
+      methods: {
+        fire() {
+          this.$bus.$emit('load', { msg: 'cool' });
+        },
+        removeVM() {
+          vm.$destroy();
+        }
+      }
+    }).$mount('#app2');
+  </script>
+</body>
+</html>
