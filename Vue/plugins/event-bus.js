@@ -1,10 +1,13 @@
 (function (global, factory) {
-  if (typeof module !== "undefined") {
+  if (typeof exports === 'object' && typeof module !== "undefined") {
     module.exports = factory();
   } else if (typeof define !== "undefined" && define.amd) {
-    define("EventBus", factory);
+    define(factory);
   } else {
     global.EventBus = factory();
+    if (typeof global !== 'undefined' && global.Vue) {
+      global.Vue.use(global.EventBus);
+    }
   }
 })(this, function () {
   function install(Vue) {
@@ -26,6 +29,7 @@
       beforeDestroy() {
         for (let listener in this.$busListeners) {
           bus.$off(listener, this.$busListeners[listener]);
+          delete this.$busListeners[listener];
         }
         this.$busListeners = null;
       }
