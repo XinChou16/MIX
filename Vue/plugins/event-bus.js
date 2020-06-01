@@ -1,7 +1,7 @@
 (function (global, factory) {
-  if (typeof exports === 'object' && typeof module !== "undefined") {
+  if (typeof exports === 'object' && typeof module !== 'undefined') {
     module.exports = factory();
-  } else if (typeof define !== "undefined" && define.amd) {
+  } else if (typeof define === 'function' && define.amd) {
     define(factory);
   } else {
     global.EventBus = factory();
@@ -18,20 +18,22 @@
     Vue.mixin({
       created() {
         const $bus = this.$options.$bus || {};
-        this.$busListeners = {};
+        let $busListeners = {};
 
         for (let listener in $bus) {
-          this.$busListeners[listener] = $bus[listener].bind(this);
-          bus.$on(listener, this.$busListeners[listener]);
+          $busListeners[listener] = $bus[listener].bind(this);
+          bus.$on(listener, $busListeners[listener]);
         }
 
-      },
-      beforeDestroy() {
-        for (let listener in this.$busListeners) {
-          bus.$off(listener, this.$busListeners[listener]);
-          delete this.$busListeners[listener];
-        }
-        this.$busListeners = null;
+        // tear down listeners
+        this.$once('hook:beforeDestroy', () => {
+          for (let listener in $busListeners) {
+            bus.$off(listener, $busListeners[listener]);
+            delete $busListeners[listener];
+          }
+          $busListeners = null;
+        });
+
       }
     })
   }

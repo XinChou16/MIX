@@ -42,6 +42,7 @@
     new Vue({
       methods: {
         fire() {
+          console.log('emit-event');
           this.$bus.$emit('load', { msg: 'cool' });
         },
         removeVM() {
