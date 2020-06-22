@@ -1,0 +1,58 @@
+
+// Partials
+@use 'reset';
+@use 'variables';
+
+// Variables
+$width: 30px;
+$primary-color: red;
+
+p {
+  width: $width;
+  color: $primary-color;
+}
+
+
+// Nesting
+nav {
+  ul {
+    margin: 0;
+    padding: 0;
+    letter-spacing: normal;
+  }
+}
+
+// Module
+section {
+  height: variables.$height;
+}
+
+// Mixins
+@mixin transform($property) {
+  transform: $property;
+  -webkit-transform: $property;
+}
+
+img {
+  @include transform(scale(1));
+}
+
+// Extend
+%center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  @extend %center;
+}
+
+// Operators
+aside {
+  float: left;
+  // 36px
+  width: 900 / 30 * 1.2px;
+  // 500%
+  height: 10px / 2px * 100%;
+}
