@@ -1,0 +1,38 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  width: 30px;
+  color: red;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  letter-spacing: normal;
+}
+
+section {
+  height: 100px;
+}
+
+img {
+  transform: scale(1);
+  -webkit-transform: scale(1);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+aside {
+  float: left;
+  width: 36px;
+  height: 500%;
+}
+
+/*# sourceMappingURL=guide.css.map */

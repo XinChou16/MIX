@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>首页</title>
+  <!-- <meta http-equiv="refresh" content="2; url=./index2.html"> -->
+</head>
+<body>
+  <p>index</p>
+  <p>jump after 3 seconds</p>
+
+  <script>
+    // setTimeout(() => {
+    //   location.href = './index2.html';
+    // }, 3000);
+    console.log('index page')
+    document.addEventListener('visibilitychange', function(args) {
+      console.log(args)
+    })
+    window.addEventListener('pageshow', function(e) {
+      console.log('pageshow', e)
+    })
+  </script>
+</body>
+</html>

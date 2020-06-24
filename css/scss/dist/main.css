@@ -1,17 +1,10 @@
-// mixin
-
-@mixin fullscreen {
+.container {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0);
 }
 
-.container {
-  @include fullscreen;
-}
-
-// This comment won't be included in the CSS.
-
 /* But this comment will, except in compressed mode. */
 
+/*# sourceMappingURL=main.css.map */

@@ -113,6 +113,9 @@
   <script>
     let lastPoints = [];
 
+    // 复制手势点数组到剪贴板
+    window.copyPoints = () => copy(window.lastPoints);
+
     var options = {
       el: document.getElementById('test'),
       enablePath: document.getElementById('path').checked,
@@ -129,6 +132,7 @@
         console.log(res);
         document.getElementById('result').innerHTML = res.score > 2 ? res.name : '未识别';
         lastPoints = points;
+
         window.lastPoints = points
         console.log(points)
       }
