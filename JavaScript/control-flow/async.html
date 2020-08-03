@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Control flow</title>
+</head>
+<body>
+  <p> async control flow </p>
+<script src="https://cdn.jsdelivr.net/npm/async@3.2.0/dist/async.min.js"></script>
+<script>
+console.log(typeof async);
+
+// parallel
+
+async.parallel([
+  function(callback) {
+    setTimeout(() => {
+      callback(null, 'one');
+    }, 500);
+  },
+  function(callback) {
+    setTimeout(() => {
+      callback(null, 'two');
+    }, 2000);
+  },
+], function(err, results) {
+  console.log({ err, results });
+});
+
+// waterfall
+
+async.waterfall([
+  firstFn,
+  secondFn,
+  thirdFn
+], function(err, results) {
+  console.log({ err, results });
+});
+
+function firstFn(callback) {
+  callback(null, 'one');
+}
+
+function secondFn(arg1, callback) {
+  callback(null, arg1, 'two');
+}
+
+function thirdFn(arg1, arg2, callback) {
+  console.log(arg1, arg2, 'three');
+  callback(null, 'done');
+}
+
+
+</script>
+</body>
+</html>
