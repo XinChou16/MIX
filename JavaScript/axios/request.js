@@ -5,9 +5,9 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseUrl: '',
+    baseURL: '',
     headers: {},
-    timeout: 0,
+    timeout: 10 * 1000,
 });
 
 // request interception
@@ -18,19 +18,24 @@ instance.interceptors.request.use((res) => {
 });
 
 // response interception
-instance.interceptors.response.use((res) => {
-    return res;
+instance.interceptors.response.use((response) => {
+    return response.data;
 }, (err) => {
-    return Promise.reject(err);
+    return Promise.reject(err.response && err.response.data);
 });
 
 
-const get = (url, data, config) => {
-    return instance.get(url, config);
+const get = (url, params = {}, headers = {}) => {
+    return instance.get(url, {
+      params,
+      headers
+    });
 }
 
-const post = (url, data, config) => {
-    return instance.post(url, data, config);
+const post = (url, data = {}, headers = {}) => {
+    return instance.post(url, data, {
+      headers
+    });
 }
 
 export { get, post };
