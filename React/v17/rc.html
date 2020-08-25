@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React RC</title>
+</head>
+<body>
+  <div id="app">
+  </div>
+  <script crossorigin src="https://unpkg.com/react@17.0.0-rc.0/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17.0.0-rc.0/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    class APP extends React.Component {
+      render() {
+        return (
+          <div>
+            6666
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(
+      <APP />,
+      document.getElementById('app')
+    );
+  </script>
+</body>
+</html>
