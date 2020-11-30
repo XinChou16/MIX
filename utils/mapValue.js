@@ -20,7 +20,7 @@ module.exports = function mapValue(object, iteratee) {
   const result = {};
 
   Object.keys(object).forEach(key => {
-    result[key] = iterate(object[key], key, object);
+    result[key] = iteratee(object[key], key, object);
   });
 
   return result;
