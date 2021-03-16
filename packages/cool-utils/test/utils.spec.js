@@ -1,6 +1,7 @@
 'use strict'
 
 const { checkPhone, getQueryParams, deepCopy } = require('../src/utils');
+const { normalizeDate } = require('../src/date');
 
 describe('utils', () => {
     it('checkphone', () => {
@@ -69,4 +70,24 @@ describe('utils', () => {
         original.circular = original;
         expect(deepCopy(original)).toEqual(original);
     });
+});
+
+describe('date', () => {
+  const dateStr = '2021-03-16 09:00:00';
+  const dateObj = new Date(dateStr);
+
+  it('date: string', () => {
+    expect(normalizeDate(dateStr)).toEqual(dateObj);
+  });
+
+  it('date: Safari', () => {
+    const dateStr = '2021-03-16 09:00:00';
+    const dateObj = new Date('2021/03/16 09:00:00');
+    expect(normalizeDate(dateStr)).toEqual(dateObj);
+  });
+
+  it('date: Date instance', () => {
+    expect(normalizeDate(dateObj)).toEqual(dateObj);
+  });
+
 });
