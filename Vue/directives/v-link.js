@@ -26,4 +26,31 @@ export const link = {
     el.removeEventListener('click', el.__hrefHandler);
     delete el.__hrefHandler;
   }
-}
+};
+
+/**
+ * 给任意元素添加 `<router-link>` 的 `to` 效果
+ */
+export const to = {
+  bind(el, binding, vnode) {
+    el.dataset.to = binding.value;
+
+    const $router = vnode.componentInstance.$router;
+    if (!$router) {
+      return console.warn('cannot find vue router instance');
+    }
+
+    el.__toHandler = () => {
+      $router[binding.modifiers.replace ? 'replace' : 'push'](el.dataset.to);
+    };
+
+    el.addEventListener('click', el.__toHandler);
+  },
+  update(el, binding) {
+    el.dataset.to = binding.value;
+  },
+  unbind(el) {
+    el.removeEventListener('click', el.__toHandler);
+    delete el.__toHandler;
+  }
+};
