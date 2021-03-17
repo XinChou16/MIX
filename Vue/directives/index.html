@@ -9,8 +9,11 @@
   <p>v-directive</p>
 
   <div id="app">
+    <p>v-focus:</p>
     <p v-focus>focus</p>
-    <button v-link.blank="link">link</button>
+
+    <p>v-link:</p>
+    <button v-link.blank.replace="link">link</button>
   </div>
   <script src="https://cdn.bootcss.com/vue/2.6.7/vue.min.js"></script>
   <script type="module">
@@ -23,7 +26,7 @@
       Vue.directive(key, directives[key]);
     });
 
-    new Vue({
+    window.app = new Vue({
       data: {
         link: 'http://baidu.com'
       }

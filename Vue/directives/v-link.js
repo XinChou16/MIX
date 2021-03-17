@@ -12,7 +12,8 @@ export const link = {
       if (binding.modifiers.blank) {
         window.open(el.dataset.href);
       } else {
-        location.href = el.dataset.href;
+        const replace = binding.modifiers.replace;
+        window.location[replace ? 'replace' : 'assign'](el.dataset.href);
       }
     };
 
