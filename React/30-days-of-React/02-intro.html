@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>30 Days Of React Challenge</title>
+</head>
+
+<body>
+  <div class="root"></div>
+
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <style>
+    .main-wrapper {
+      background: #f5f5f5;
+    }
+  </style>
+  <script type="text/babel">
+    const headerTitle = 'Cool React.';
+    const header = (
+      <header
+        style={{ border: '1px solid #66f', color: '#333', fontSize: '18px' }}
+      >
+        <h1>{headerTitle}</h1>
+        <p>Welcome~</p>
+      </header>
+    );
+    const main = (
+      <main className="main-wrapper">
+        <p>Nice work</p>
+      </main>
+    );
+    const footer = (
+      <footer>
+        <p>Power by github</p>
+      </footer>
+    );
+    const app = (
+      <div>
+        {header}
+        {main}
+        {footer}
+      </div>
+    );
+    ReactDOM.render(
+      app,
+      document.querySelector('.root')
+    );
+  </script>
+</body>
+
+</html>
