@@ -1,0 +1,15 @@
+{
+  "name": "start",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc -w src/index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "description": "",
+  "devDependencies": {
+    "typescript": "^4.2.3"
+  }
+}
