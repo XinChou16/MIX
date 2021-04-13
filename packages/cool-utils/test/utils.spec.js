@@ -2,6 +2,7 @@
 
 const { checkPhone, getQueryParams, deepCopy } = require('../src/utils');
 const { normalizeDate } = require('../src/date');
+const { getMaxSeriesArrLength, getMaxSeriesArr } = require('../src/arr-series');
 
 describe('utils', () => {
     it('checkphone', () => {
@@ -90,4 +91,25 @@ describe('date', () => {
     expect(normalizeDate(dateObj)).toEqual(dateObj);
   });
 
+});
+
+describe('arr-series', () => {
+  it('series: Get max len', () => {
+    expect(getMaxSeriesArrLength([1, 2, 3])).toEqual(3);
+    expect(getMaxSeriesArrLength([1, 2, 4])).toEqual(2);
+    expect(getMaxSeriesArrLength([1, 2, 3, 4, 5])).toEqual(5);
+    expect(getMaxSeriesArrLength([1, 1, 2, 4, 5])).toEqual(2);
+    expect(getMaxSeriesArrLength([1, 1, 2, 3, 5])).toEqual(3);
+    expect(getMaxSeriesArrLength([1, 1, 3, 3, 5])).toEqual(1);
+    expect(getMaxSeriesArrLength([100])).toEqual(1);
+  });
+  it('series: Get max arr', () => {
+    expect(getMaxSeriesArr([1, 2, 3])).toEqual([1, 2, 3]);
+    expect(getMaxSeriesArr([1, 2, 4])).toEqual([1, 2]);
+    expect(getMaxSeriesArr([1, 2, 3, 4, 5])).toEqual([1, 2, 3, 4, 5]);
+    expect(getMaxSeriesArr([1, 1, 2, 4, 5])).toEqual([1, 2]);
+    expect(getMaxSeriesArr([1, 1, 2, 3, 5])).toEqual([1, 2, 3]);
+    expect(getMaxSeriesArr([1, 1, 3, 3, 5])).toEqual([1]);
+    expect(getMaxSeriesArr([100])).toEqual([100]);
+  });
 });
