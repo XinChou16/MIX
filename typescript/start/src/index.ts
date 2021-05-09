@@ -64,4 +64,34 @@ let action = Action.SET_DATE;
 const foo = 123;
 const bar = foo.toString();
 
-window.helloWorld
+// window.helloWorld
+
+
+/* 函数注解 */
+interface Foo {
+  foo: string
+}
+function foo1(data: Foo): Foo {
+  let data1 = 123;
+  return data;
+}
+
+/* ?.  */
+let obj = {
+  a: 1,
+  b: {
+    c:2
+  }
+}
+
+let objc1 = obj.a;
+let objc = obj?.a;
+let objb = obj?.b?.c;
+let objb2 = obj?.b!.c;
+
+class myClass {
+  constructor() {
+    // this.name = '';
+  }
+  sayName() {};
+}
