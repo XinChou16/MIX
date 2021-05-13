@@ -1,13 +1,16 @@
 import React, { Suspense } from 'react';
+import ErrorBoundary from './children/ErrorBoundary';
 
-const OtherComponent = React.lazy(() => import('./LazyComponent'));
+const OtherComponent = React.lazy(() => import('./children/LazyComponent'));
 
 const Component = () => {
   return (
     <div>
-      <Suspense fallback={<div>loading...</div>}>
-        <OtherComponent />
-      </Suspense>
+      <ErrorBoundary>
+        <Suspense fallback={<div>loading...</div>}>
+          <OtherComponent />
+        </Suspense>
+      </ErrorBoundary>
     </div>
   );
 };
