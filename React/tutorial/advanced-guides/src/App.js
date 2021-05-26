@@ -20,6 +20,10 @@ const routes = [
   {
     path: 'context',
     component: Context
+  },
+  {
+    path: 'jsx',
+    component: React.lazy(() => import('./components/Jsx'))
   }
 ];
 
@@ -35,9 +39,9 @@ const App = () => {
           {/* <NavLink to="/context">context</NavLink> */}
 
           <Switch>
-            <Route path="/accessibility" component={Accessibility} ></Route>
-            <Route path="/codeSpliting" component={CodeSpliting} ></Route>
-            <Route path="/context" component={Context} ></Route>
+            {routes.map(route => (
+                <Route key={route.path} path={'/' + route.path} component={route.component} ></Route>
+            ))}
             <Route component={NotFound} />
           </Switch>
         </Router>
