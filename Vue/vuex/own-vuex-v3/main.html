@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vuex1</title>
+</head>
+
+<body>
+  <div id="app">
+    vuex
+    <p>count: {{count}}</p>
+    <p>computed num: {{num}}</p>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.0.0/dist/vue.js"></script>
+  <script type="module">
+    import Vuex from './vuex.js';
+
+    const store = new Vuex.Store({
+      state: {
+        count: 2
+      },
+      getters: {
+        num: state => state.count - 1
+      },
+      mutations: {
+        increment: (state, count = 0) => state.count += count,
+        decrement: (state, count = 0) => state.count -= count,
+      }
+    });
+    window.vm = new Vue({
+      el: '#app',
+      store,
+      computed: {
+        num: () => store.getters.num,
+        count: () => store.state.count
+      },
+      methods: {
+        increment() {
+          store.commit('increment', 1);
+        },
+        decrement() {
+          this.$store.commit('decrement', 1);
+        }
+      }
+    });
+
+    window.store = store;
+    console.log(Vuex);
+    console.log(store);
+  </script>
+</body>
+
+</html>

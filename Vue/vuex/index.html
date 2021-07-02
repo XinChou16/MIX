@@ -22,6 +22,9 @@
     state: {
       count: 0,
     },
+    getters: {
+      counts: state => state.count
+    },
     mutations: {
       increment: state => state.count++,
       decrement: state => state.count--,
