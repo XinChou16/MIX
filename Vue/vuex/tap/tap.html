@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vuex1</title>
+</head>
+<body>
+  <div id="app">
+    <p>count: {{count}}</p>
+    <button v-tap:foo:bar.a.b.c.d="() => increment('123', count)">+</button>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.0.0/dist/vue.js"></script>
+<!-- <script src="https://cdn.jsdelivr.net/npm/vuex@1.0.0/dist/vuex.js"></script> -->
+<script src="./tap.js"></script>
+<script>
+  console.log(typeof vueTap);
+  window.app = new Vue({
+    el: '#app',
+    data: {
+      count: 1,
+    },
+    methods: {
+      increment(...args) {
+        console.log(args);
+        // console.log('increment');
+        this.count++;
+      }
+    }
+  })
+</script>
+</body>
+</html>
