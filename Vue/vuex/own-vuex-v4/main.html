@@ -32,6 +32,14 @@
         decrement: (state, count = 0) => state.count -= count,
       },
       actions: {
+        incrementAction({ commit }, payload) {
+          return new Promise(resolve => {
+            setTimeout(() => {
+              commit('increment', payload);
+              resolve(true);
+            }, 1000);
+          })
+        },
         decrementAction({ commit, state, getters }) {
           commit('decrement', 1);
           return state.count;
@@ -47,7 +55,9 @@
       },
       methods: {
         increment() {
-          store.commit('increment', 1);
+          store.dispatch('incrementAction', 2).then(res => {
+            console.log('increment resolved', {res});
+          })
         },
         decrement() {
           this.$store.dispatch('decrementAction', 1).then(res => {
