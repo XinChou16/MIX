@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vuex1</title>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    vuex
+    <p>count: {{count}}</p>
+    <p> computedCount: {{computedCount}}</p>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.0.0/dist/vue.js"></script>
+  <script type="module">
+    import Vuex from './vuex.js';
+
+    const store = new Vuex.Store({
+      state: {
+        count: 1
+      },
+      getters: {
+        computedCount: state => state.count - 1
+      },
+      mutations: {
+        increment: (state, count = 1) => state.count += count,
+        decrement: (state, count = 1) => state.count -= count,
+      }
+    });
+    const vm = new Vue({
+      el: '#app',
+      store,
+      computed: {
+        computedCount: () => store.getters.computedCount,
+        count: () => store.state.count
+      },
+      methods: {
+        increment() {
+          store.commit('increment', 2);
+        },
+        decrement() {
+          store.commit('decrement', 1);
+        }
+      }
+    });
+
+    // subscribe mutation
+    const unSubscribe = store.subscribe((mutation, state) => {
+      console.log('mutation: %s, payload: %s', mutation.type, mutation.payload, state);
+    });
+
+    store.subscribe((mutation, state) => {
+      console.log('prepend1, mutation: %s, payload: %s', mutation.type, mutation.payload, state);
+    }, { prepend: true });
+
+    store.subscribe((mutation, state) => {
+      console.log('prepend2, mutation: %s, payload: %s', mutation.type, mutation.payload, state);
+    }, { prepend: true });
+
+    setTimeout(() => {
+      unSubscribe();
+      console.log('unsubscribe');
+    }, 2000);
+
+    window.store = store;
+    window.vm = vm;
+    console.log(Vuex);
+    console.log(store);
+  </script>
+</body>
+
+</html>
