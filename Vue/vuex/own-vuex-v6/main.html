@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vuex1</title>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    vuex
+    <p>count: {{count}}</p>
+    <p>dynamic module num: {{ num }}</p>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.0.0/dist/vue.js"></script>
+  <script type="module">
+    import Vuex from './vuex.js';
+    // import Vuex from '../vuex-2.0.0/index.js';
+
+    const store = new Vuex.Store({
+      state: {
+        count: 1
+      },
+      mutations: {
+        increment: (state, count = 1) => state.count += count,
+        decrement: (state, count = 1) => state.count -= count,
+      }
+    });
+
+    // register module
+    store.registerModule('my', {
+      state: {
+        num: 10
+      }
+    })
+    const vm = new Vue({
+      el: '#app',
+      store,
+      computed: {
+        num: (vm) => vm.$store.state?.my?.num,
+        count: () => store.state.count
+      },
+      methods: {
+        increment() {
+          store.commit('increment', 1);
+        },
+        decrement() {
+          store.commit('decrement', 1);
+        }
+      }
+    });
+
+    window.store = store;
+    window.vm = vm;
+    console.log(Vuex);
+    console.log(store);
+  </script>
+</body>
+
+</html>
