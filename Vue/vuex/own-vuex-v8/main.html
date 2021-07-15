@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vuex1</title>
+</head>
+
+<body>
+  <div id="app" v-cloak>
+    vuex
+    <p>root: {{count}}</p>
+    <p>moduleA: {{ color }}</p>
+    <button @click="increment">+</button>
+    <button @click="change">color</button>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.0.0/dist/vue.js"></script>
+  <script type="module">
+    import Vuex from './vuex.js';
+    // import Vuex from '../vuex-2.0.0/index.js';
+
+    const moduleA = {
+      namespaced: true,
+      state: {
+        color: 'r'
+      },
+      mutations: {
+        change: state => state.color = 'g'
+      }
+    }
+
+    const store = new Vuex.Store({
+      state: {
+        count: 1
+      },
+      mutations: {
+        increment: (state, count = 1) => state.count += count,
+      },
+      modules: {
+        moduleA
+      }
+    });
+
+    const vm = new Vue({
+      el: '#app',
+      store,
+      computed: {
+        color: (vm) => vm.$store.state.moduleA.color,
+        count: () => store.state.count
+      },
+      methods: {
+        increment() {
+          store.commit('increment', 1);
+        },
+        change() {
+          store.commit('change');
+        }
+      }
+    });
+
+    window.store = store;
+    window.vm = vm;
+    console.log(Vuex);
+    console.log(store);
+  </script>
+</body>
+
+</html>
