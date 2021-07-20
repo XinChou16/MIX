@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue.use()</title>
+</head>
+
+<body>
+  <p>Vue.use</p>
+  <script>
+    var Vue = {};
+
+    function initUse(Vue) {
+      Vue.use = function (plugin) {
+        if (plugin.installed) {
+          return
+        }
+        var args = toArray(arguments, 1)
+        args.unshift(this)
+        if (typeof plugin.install === 'function') {
+          plugin.install.apply(plugin, args)
+        } else {
+          plugin.apply(null, args)
+        }
+        plugin.installed = true
+        return this
+      }
+    }
+
+    Vue.use(plugins, { foo: a });
+
+    console.log(Vue);
+
+  </script>
+</body>
+
+</html>

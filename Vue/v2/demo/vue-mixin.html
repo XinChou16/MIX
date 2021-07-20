@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mixin</title>
+</head>
+<body>
+  <p>Vue mixin</p>
+  <div id="app"></div>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2.0.0/dist/vue.js"></script> -->
+  <script src="../study-vue-2.0.0/vue-2.0.0.js"></script>
+  <script>
+    console.log('version: %o', Vue.version);
+    console.log('options: %o', Vue.options);
+    console.log('config: %o', Vue.config);
+    console.log( Object.keys(Vue) );
+    var keys = Object.keys(Vue);
+
+    // for( key in Vue) {
+    //   console.log(key);
+    // }
+
+    keys.forEach(key => {
+      if (typeof Vue[key] === 'object') {
+        console.log(key, Vue[key]);
+      }
+    })
+    const originalData = Vue.config.optionMergeStrategies.data;
+    Vue.config.optionMergeStrategies.data = (parent, child, vm) => {
+      console.log({parent, child, vm});
+      return originalData(parent, child);
+    }
+
+    Vue.mixin({
+      data: () => ({
+        tip: 1
+      })
+    });
+    var app = new Vue({
+      template: `<div>app, {{ tip }}</div>`,
+    }).$mount('#app');
+  </script>
+</body>
+</html>
