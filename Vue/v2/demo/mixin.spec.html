@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>mixin.spec</title>
+</head>
+
+<body>
+  <script src="../study-vue-2.0.0/vue-2.0.0.js"></script>
+  <script>
+    const calls = [];
+
+    // Vue.config.optionMergeStrategies.foo = (parent, child, vm) => {
+    //   console.log({parent, child, vm});
+    //   return child;
+    // }
+
+    Vue.mixin({
+      foo: 1,
+      created() {
+        calls.push(this.$options.myOption + ' global');
+      }
+    });
+
+    const Test = Vue.extend({
+      name: 'test',
+      created() {
+        calls.push(this.$options.myOption + ' local');
+      }
+    });
+
+    console.log(Test.options.name === 'test');
+    var app = new Test({
+      myOption: 'hello'
+    });
+
+    console.log(calls);
+  </script>
+</body>
+
+</html>

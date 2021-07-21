@@ -304,15 +304,22 @@ export function mergeOptions (
   }
   const options = {}
   let key
+
+  // 合并target对象
   for (key in parent) {
     mergeField(key)
   }
+
+  // 合并 source 对象
   for (key in child) {
     if (!hasOwn(parent, key)) {
+      // 假设有个key为 foo, parent上没有， 则进行合并
       mergeField(key)
     }
   }
   function mergeField (key) {
+    // 寻找合并策略函数，没有就使用默认的
+    // 默认合并函数，如果父级没有就使用子级的
     const strat = strats[key] || defaultStrat
     options[key] = strat(parent[key], child[key], vm, key)
   }
