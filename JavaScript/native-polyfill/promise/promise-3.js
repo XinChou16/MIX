@@ -100,6 +100,14 @@ Promise.prototype.then = function (onFullfilled, onRejected){
   return prom;
 };
 
+Promise.prototype.finally = function(callback) {
+  const p = this.constructor;
+  return this.then(
+    value => p.resolve(callback()).then(() => value),
+    reason => p.resolve(callback()).then(() => p.reject(reason))
+  );
+}
+
 Promise._immediateFn =
   (typeof setImmediate === 'function' &&
     function (fn) {
