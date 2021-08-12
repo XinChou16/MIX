@@ -28,6 +28,8 @@ function isNative (Ctor: Function): boolean {
 
 /**
  * Defer a task to execute it asynchronously.
+ *
+ * 异步延迟执行一个任务
  */
 export const nextTick = (function () {
   const callbacks = []
@@ -96,6 +98,7 @@ export const nextTick = (function () {
   }
 })()
 
+// SET的兼容
 let _Set
 /* istanbul ignore if */
 if (typeof Set !== 'undefined' && isNative(Set)) {
