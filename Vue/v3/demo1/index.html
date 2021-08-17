@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="app">
+      <p>foo</p>
+      <p>{{ foo }}</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.2.2/dist/vue.global.js"></script>
+    <script>
+      const { createApp } = Vue;
+
+      var app = createApp({
+        data: () => ({
+          foo: 1
+        })
+      });
+
+      app.mount('#app');
+
+      console.log(typeof Vue);
+      console.log(app);
+    </script>
+  </body>
+</html>
