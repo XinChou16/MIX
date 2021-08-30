@@ -3,8 +3,12 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": ">=12"
+  },
   "scripts": {
-    "dev": "rollup -c --watch"
+    "dev": "rollup -c --watch",
+    "dev:page": "puer -p 8090 --no-launch"
   },
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^13.0.4",

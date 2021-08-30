@@ -2,6 +2,8 @@
  * SDK Ctor
  */
 import { warn } from '../util';
+import { initMixin } from './init';
+import { eventsMixin } from './events';
 
 function SDK(options) {
   if (!(this instanceof SDK)) {
@@ -11,12 +13,6 @@ function SDK(options) {
 }
 
 initMixin(SDK);
-
-// methods
-function initMixin(SDK) {
-  SDK.prototype._init = function (options) {
-
-  };
-}
+eventsMixin(SDK);
 
 export default SDK;
