@@ -1,0 +1,47 @@
+<script>
+  function remove(list, item) {
+    let index = list.indexOf(item);
+    if (index > -1) {
+      list.splice(index, 1);
+    }
+  }
+
+  let uid = 0;
+  class Dep {
+    constructor() {
+      this.id = uid++;
+      this.subs = [];
+    }
+    addSub(sub) {
+      this.subs.push(sub);
+    }
+    removeSub(sub) {
+      remove(this.subs, sub);
+    }
+    depend() {
+      if (Dep.target) {
+        Dep.target.addSub(this);
+      }
+    }
+    notify() {
+      const subs = this.subs.slice();
+      for(let i = 0; i < subs.length; i++) {
+        subs[i].update();
+      }
+    }
+  }
+
+  Dep.target = null;
+  const targetStack = [];
+
+  function pushTarget(_target) {
+    if (Dep.target) {
+      targetStack.push(Dep.target);
+    }
+    Dep.target = _target;
+  }
+
+  function popTarget() {
+    Dep.target = targetStack.pop();
+  }
+</script>
