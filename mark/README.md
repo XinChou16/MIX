@@ -33,3 +33,10 @@ webpack module配置
         },
     }
 ```
+
+## 11.22
+
+GraphQL
+
+- url: https://fullstackopen.com/en/part8
+
