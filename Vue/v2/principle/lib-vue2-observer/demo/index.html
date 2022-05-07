@@ -1,0 +1,38 @@
+<div id="app">
+
+</div>
+
+<script type="module">
+  import Vue from '../dist/index.js';
+
+  var render = (data) => {
+    var $app = document.querySelector('#app');
+    $app.innerHTML = Object.keys(data)
+      .map(key => {
+        return `<p>${key}: ${data[key]}</p>`;
+      })
+      .join('');
+  };
+
+  var vm = window.vm = new Vue({
+    data: {
+      count: 1,
+    },
+    computed: {
+      size() {
+        const val =  this.count + 1;
+        console.log('size evaluate', val);
+
+        // render({
+        //   count: this.count,
+        //   size: val,
+        // });
+
+        return val;
+      }
+    }
+  });
+
+  console.log(vm);
+
+</script>
