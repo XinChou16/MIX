@@ -2,7 +2,7 @@ const buildConfigs = [
   {
     id: '1',
     input: './lib-vue2-observer/src/index.js',
-    output: './lib-vue2-observer/dist/index.js'
+    output: './lib-vue2-observer/demo/index.js'
   }
 ];
 

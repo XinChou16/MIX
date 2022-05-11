@@ -66,7 +66,8 @@ function makeComputedGetter(vm, key) {
       const watcher = vm._computedWatchers[key];
       // 添加当前依赖
       if (Dep.target) {
-        watcher.depend();
+        // watcher.depend();
+        console.log('==computed getter');
       }
       console.log('computedGetter', watcher);
       return watcher.value;

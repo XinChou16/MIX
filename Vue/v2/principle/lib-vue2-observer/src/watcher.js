@@ -8,6 +8,8 @@ class Watcher {
     this.id = ++uid;
     this.deps = [];
     this.depIds = new Set();
+
+    // debug info
     this.bindKey = opts.key;
     this.watchType = opts.type;
 
