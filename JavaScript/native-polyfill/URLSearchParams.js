@@ -1,7 +1,9 @@
 /**
  * @author zhoux
  * @since 20191021
+ * @update 20220602
  * @description Chrome 74+
+ * @see [URLSearchParams polyfill](https://github.com/ungap/url-search-params/blob/master/esm/index.js)
  */
 
 class MyURLSearchParams {
@@ -68,4 +70,19 @@ for(const [key, value] of searchParams) {
   // ["foo", "10"]
   // ["bar", "2"]
   // ["foo", "100"]
+}
+
+function iterator() {
+    let items = [];
+    let iterable = false;
+    try { iterable = !!Symbol.iterator } catch (e) {}
+    
+    return iterable
+        ? items[Symbol.iterator]()
+        : {
+            next() {
+                let value = items.shift();
+                return { done: val === void 0, value };
+            }
+        }
 }
