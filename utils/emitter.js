@@ -2,6 +2,7 @@
  * EventEmitter
  * @see ../Vue/v2/principle/lib-vue2/instance/events.js
  * @see ../Vue/v2/vue-2.0.0/src/core/instance/events.js
+ * @see https://github.com/vueuse/vueuse/blob/main/packages/core/useEventBus/index.ts
  */
 class EventEmitter {
     #event = {};
