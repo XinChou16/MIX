@@ -1,4 +1,0 @@
-/**
- * implemenation of Promise
- */
-
