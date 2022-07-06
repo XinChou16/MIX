@@ -1,5 +1,5 @@
 /**
- * 4. 将 AST 转换为 code
+ * 6. 重写 require 函数，是的浏览器能够识别，输出打包后的 bundle
  */
 
 const fs = require('fs');
@@ -7,6 +7,25 @@ const parser = require('@babel/parser');
 const traverse = require('@babel/traverse').default
 const { transformFromAst } = require('@babel/core')
 const path = require('path');
+
+const requireProxy = graphCode => `;(function(graph) {
+
+  function require(moduleId) {
+    function localRequire(relativePath) {
+      return require(graph[moduleId].dependencies[relativePath]);
+    }
+
+    // require参数是给 code 里面提供的
+    var exports = {};
+    ;(function(require, exports, code) {
+      eval(code);
+    })(localRequire, exports, graph[moduleId].code);
+
+    return exports;
+  }
+
+  require('./src/index.js');
+})(${graphCode})`
 
 const Parser = {
     // 获取AST
@@ -33,7 +52,8 @@ const Parser = {
                 // console.log(node.source,filepath);
                 // console.log({dirname, filepath, node});
 
-                depends[node.source.value] = filepath
+                // 实际使用，会省略js文件名后缀，fs查找时，需要补充完整
+                depends[node.source.value] = filepath + '.js';
             }
         });
 
@@ -42,7 +62,7 @@ const Parser = {
     // 生成 code
     getCode(ast) {
         const { code } = transformFromAst(ast, null, {
-            // presets: ['@babel/preset-env']
+            presets: ['@babel/preset-env']
         })
         return code
     }
@@ -65,12 +85,11 @@ class Compiler {
       this.modules.forEach(({ dependencies}) => {
         if (dependencies) {
           for (const dependency in dependencies) {
-            const itemInfo = this.build(dependencies[dependency] + '.js');
+            const itemInfo = this.build(dependencies[dependency]);
             this.modules.push(itemInfo);
           }
         }
       })
-      console.log(this.modules);
 
       // 生成依赖关系图
       const dependGraph = this.modules.reduce(
@@ -85,6 +104,7 @@ class Compiler {
         {}
       );
       console.log(dependGraph);
+      this.generate(dependGraph);
     }
     build(filename) {
         const ast = Parser.getAst(filename);
@@ -101,8 +121,16 @@ class Compiler {
         }
     }
     // 重写 require函数，输出 bundle
-    generate() {
+    generate(code) {
+      const filePath = path.join(this.output.path, this.output.filename)
 
+      const bundle = requireProxy(JSON.stringify(code));
+
+      // 写入文件
+      if (!fs.existsSync(filePath)) {
+        fs.mkdirSync(this.output.path);
+      }
+      fs.writeFileSync(filePath, bundle, 'utf-8');
     }
 }
 

@@ -1,31 +1,53 @@
 /**
- * 6. 重写 require 函数，是的浏览器能够识别，输出打包后的 bundle
+ * 5. 递归解析所有依赖
+ * https://github.com/webfansplz/article/issues/38
  */
 
 const fs = require('fs');
+const parser = require('@babel/parser');
+const traverse = require('@babel/traverse').default
+const { transformFromAst } = require('@babel/core')
 const path = require('path');
 
-const Parser = require('./Parser');
+const Parser = {
+    // 获取AST
+    getAst: path => {
+        // 读取入口文件
+        const content = fs.readFileSync(path, 'utf-8');
+        // 将文件内容转为AST抽象语法树
+        return parser.parse(content, {
+            sourceType: 'module'
+        })
+    },
+    // 获取依赖
+    getDependencies(ast, filename) {
+        const depends = {};
 
-const requireProxy = graphCode => `;(function(graph) {
+        // 遍历所有的import, 存起来
+        traverse(ast, {
+            // import 导入语句的AST节点
+            ImportDeclaration({ node }) {
+                const dirname = path.dirname(filename);
+                // 保存依赖模块路径, 后面生成依赖关系图会用到
+                const filepath = './' + path.join(dirname, node.source.value)
 
-  function require(moduleId) {
-    function localRequire(relativePath) {
-      return require(graph[moduleId].dependencies[relativePath]);
+                // console.log(node.source,filepath);
+                // console.log({dirname, filepath, node});
+
+                depends[node.source.value] = filepath
+            }
+        });
+
+        return depends;
+    },
+    // 生成 code
+    getCode(ast) {
+        const { code } = transformFromAst(ast, null, {
+            // presets: ['@babel/preset-env']
+        })
+        return code
     }
-
-    // require参数是给 code 里面提供的，避免查找不到
-    var exports = {};
-    ;(function(require, exports, code) {
-      eval(code);
-    })(localRequire, exports, graph[moduleId].code);
-
-    return exports;
-  }
-
-  require('./src/index.js');
-})(${graphCode})`
-
+}
 
 class Compiler {
     constructor(options) {
@@ -44,11 +66,12 @@ class Compiler {
       this.modules.forEach(({ dependencies}) => {
         if (dependencies) {
           for (const dependency in dependencies) {
-            const itemInfo = this.build(dependencies[dependency]);
+            const itemInfo = this.build(dependencies[dependency] + '.js');
             this.modules.push(itemInfo);
           }
         }
       })
+      console.log(this.modules);
 
       // 生成依赖关系图
       const dependGraph = this.modules.reduce(
@@ -63,7 +86,6 @@ class Compiler {
         {}
       );
       console.log(dependGraph);
-      this.generate(dependGraph);
     }
     build(filename) {
         const ast = Parser.getAst(filename);
@@ -80,16 +102,8 @@ class Compiler {
         }
     }
     // 重写 require函数，输出 bundle
-    generate(code) {
-      const filePath = path.join(this.output.path, this.output.filename)
+    generate() {
 
-      const bundle = requireProxy(JSON.stringify(code));
-
-      // 写入文件
-      if (!fs.existsSync(filePath)) {
-        fs.mkdirSync(this.output.path);
-      }
-      fs.writeFileSync(filePath, bundle, 'utf-8');
     }
 }
 

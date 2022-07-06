@@ -1,3 +1,6 @@
-import math from './math'
+import { add } from './math'
+// import math from './math2'
 
-var ret = math.add(1, 2);
+var ret = add(1, 2);
+
+console.log({ ret });
