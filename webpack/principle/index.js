@@ -1,3 +1,3 @@
-const Compiler = require('./lib/Compiler');
+const Compiler = require('./lib/step/compiler-7');
 const options = require('./webpack.config');
 new Compiler(options).run();
