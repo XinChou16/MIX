@@ -35,6 +35,7 @@ const Parser = {
     // 获取AST
     getAst: path => {
         // 读取入口文件
+        console.log({path});
         const content = fs.readFileSync(path, 'utf-8');
         // 将文件内容转为AST抽象语法树
         return parser.parse(content, {
@@ -55,9 +56,10 @@ const Parser = {
 
                 // console.log(node.source,filepath);
                 // console.log({dirname, filepath, node});
+                var extname = path.extname(filepath);
 
                 // 实际使用，会省略js文件名后缀，fs查找时，需要补充完整
-                depends[node.source.value] = filepath + '.js';
+                depends[node.source.value] = filepath + (extname ? '' : '.js');
             }
         });
 
@@ -72,10 +74,10 @@ const Parser = {
         let code = raw;
         console.log(rules);
 
-        const { test, use } = rules[0];
-        if (test.test(filename)) {
+        const [babelRule] = rules;
+        if (babelRule.test.test(filename)) {
           // babel-loader
-          const loader = require(`./${use}`);
+          const loader = require(`./${babelRule.use}`);
           code = loader(filename, code);
         }
 
