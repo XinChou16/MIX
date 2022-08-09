@@ -8,3 +8,5 @@
 - [lodash](https://github.com/lodash/lodash)
 - [underscore](https://github.com/jashkenas/underscore)
 - [vue use](https://github.com/vueuse/vueuse)
+
+- [promise-micro-task](https://github.com/hax/my-promise/blob/master/src/asap.js)
