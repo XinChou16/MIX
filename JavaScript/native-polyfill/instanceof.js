@@ -1,7 +1,7 @@
-function instanceofPolyfill(left, right) {
+function instanceofFunc1(left, right) {
   // 获得类型的原型
   let proto = right.prototype;
-  
+
   // 获得对象的原型
   left = left.__proto__;
 
@@ -17,4 +17,17 @@ function instanceofPolyfill(left, right) {
 
     left = left.__proto__;
   }
+}
+
+function instanceofFunc(left, right) {
+  let proto = right.prototype;
+
+  while(left) {
+    left = left.__proto__;
+    if (left === proto) {
+      return true;
+    }
+  }
+
+  return false;
 }
