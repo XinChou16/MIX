@@ -1,4 +1,6 @@
-import * as THREE from 'three';
+// import * as THREE from 'three';
+
+const THREE = window.THREE;
 
 let scene = new THREE.Scene();
 let camera = new THREE.PerspectiveCamera(
