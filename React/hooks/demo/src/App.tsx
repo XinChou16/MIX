@@ -2,6 +2,7 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import './App.css'
 import UseToggle from './useToggle';
+import UseLatest from './useLatest';
 
 
 function App() {
@@ -10,6 +11,7 @@ function App() {
   return (
     <div className="App">
       <UseToggle />
+      <UseLatest />
       {/* <div>
         <a href="https://vitejs.dev" target="_blank">
 
